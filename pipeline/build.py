@@ -83,6 +83,11 @@ LAB = [
 PRIVATE_SNAPSHOT = [{"Kotlin": 449_785, "Python": 9_139, "Batchfile": 1_807}]
 
 
+# Left out of the language bar: the profile is aimed at data engineering, so
+# the Android app's Kotlin would bury Python and SQL work.
+EXCLUDED_LANGUAGES = {"Kotlin"}
+
+
 # --------------------------------------------------------------------------- extract
 
 def api(url: str, token: str | None = None):
@@ -128,7 +133,8 @@ def transform(repos: list[dict], private: list[dict]) -> dict:
     languages: dict[str, int] = {}
     for langs in [r["_languages"] for r in repos] + private:
         for lang, size in langs.items():
-            languages[lang] = languages.get(lang, 0) + size
+            if lang not in EXCLUDED_LANGUAGES:
+                languages[lang] = languages.get(lang, 0) + size
     total = sum(languages.values()) or 1
     ranked = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
     top = [(name, size / total) for name, size in ranked[:6]]
