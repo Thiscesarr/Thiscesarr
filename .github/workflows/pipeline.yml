@@ -26,6 +26,8 @@ jobs:
         run: python pipeline/build.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # optional: read-only token so private repos count in the language bar
+          PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
 
       - name: Commit refreshed assets
         run: |

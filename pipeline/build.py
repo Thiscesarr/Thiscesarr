@@ -78,16 +78,21 @@ LAB = [
 ]
 
 
+# Language bytes of private repos, used only when PROFILE_TOKEN is not set.
+# Measured from the local clone on 2026-11-08 (tracked files, Linguist-style).
+PRIVATE_SNAPSHOT = [{"Kotlin": 449_785, "Python": 9_139, "Batchfile": 1_807}]
+
+
 # --------------------------------------------------------------------------- extract
 
-def api(url: str):
+def api(url: str, token: str | None = None):
     if url.startswith("/"):
         url = "https://api.github.com" + url
     req = urllib.request.Request(url, headers={
         "Accept": "application/vnd.github+json",
         "User-Agent": f"{USER}-profile-pipeline",
     })
-    token = os.environ.get("GITHUB_TOKEN")
+    token = token or os.environ.get("GITHUB_TOKEN")
     if token:
         req.add_header("Authorization", f"Bearer {token}")
     with urllib.request.urlopen(req, timeout=30) as resp:
@@ -104,12 +109,25 @@ def extract() -> list[dict]:
     return repos
 
 
+def extract_private() -> list[dict]:
+    """Language bytes of private repos. Names never leave this function.
+
+    Needs a fine-grained token (secret PROFILE_TOKEN) with read-only access to
+    Metadata on the private repos; without it, falls back to PRIVATE_SNAPSHOT.
+    """
+    token = os.environ.get("PROFILE_TOKEN")
+    if not token:
+        return PRIVATE_SNAPSHOT
+    repos = api("/user/repos?visibility=private&affiliation=owner&per_page=100", token)
+    return [api(r["languages_url"], token) for r in repos if not r["fork"]]
+
+
 # --------------------------------------------------------------------------- transform
 
-def transform(repos: list[dict]) -> dict:
+def transform(repos: list[dict], private: list[dict]) -> dict:
     languages: dict[str, int] = {}
-    for repo in repos:
-        for lang, size in repo["_languages"].items():
+    for langs in [r["_languages"] for r in repos] + private:
+        for lang, size in langs.items():
             languages[lang] = languages.get(lang, 0) + size
     total = sum(languages.values()) or 1
     ranked = sorted(languages.items(), key=lambda kv: kv[1], reverse=True)
@@ -136,7 +154,7 @@ def transform(repos: list[dict]) -> dict:
 
     return {
         "repos": len(repos),
-        "private": len(LAB),
+        "private": len(private),
         "stars": sum(r["stargazers_count"] for r in repos),
         "downloads": sum(r["_downloads"] for r in repos),
         "language_count": len(languages),
@@ -328,7 +346,8 @@ def run_log(data: dict, t: dict) -> str:
     bar_x, bar_y, bar_w = 28, 190, w - 56
     parts.append(
         f'<text x="28" y="177" font-family="{MONO}" font-size="12" fill="{t["muted"]}">'
-        f'languages by bytes across {data["repos"]} repos ({data["language_count"]} detected)</text>'
+        f'languages by bytes across {data["repos"]} public + {data["private"]} private repos '
+        f'({data["language_count"]} detected)</text>'
         f'<clipPath id="bar"><rect x="{bar_x}" y="{bar_y}" width="{bar_w}" height="10" rx="5"/></clipPath>'
         '<g clip-path="url(#bar)" class="grow">'
     )
@@ -368,7 +387,7 @@ def load(data: dict) -> None:
 
 
 def main() -> None:
-    data = transform(extract())
+    data = transform(extract(), extract_private())
     load(data)
     print(f"[load] {data['repos']} repos | {data['stars']} stars | "
           f"{data['downloads']} downloads | {len(data['cards'])} cards")
