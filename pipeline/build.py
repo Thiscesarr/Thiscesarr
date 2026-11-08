@@ -60,18 +60,6 @@ FEATURED = {
                    "~580 questions with spaced-repetition review.",
         "stack": ["javascript", "pwa", "pt / en"],
     },
-    "controle-estoque": {
-        "badge": "CASE",
-        "tagline": "Inventory REST API with reservations and holds that never "
-                   "goes inconsistent, even under concurrent requests.",
-        "stack": ["fastapi", "pytest", "hypothesis", "ci"],
-    },
-    "mastermind-case": {
-        "badge": "CASE",
-        "tagline": "Web version of the Mastermind logic game: Spring Boot API, "
-                   "Angular front end, auth, saved matches and ranking.",
-        "stack": ["java", "spring boot", "angular"],
-    },
 }
 
 
@@ -195,11 +183,11 @@ def header(t: dict) -> str:
         f'Data Engineering &amp; Analytics <tspan fill="{t["muted"]}">@</tspan> '
         f'<tspan fill="url(#beam)" font-weight="600">Itaú Unibanco</tspan></text>',
         f'<text x="48" y="180" font-family="{MONO}" font-size="13.5" fill="{t["muted"]}" class="rise d2">'
-        f'Computer Science &amp; Data Science · São Paulo, BR</text>',
+        f'Data Science · São Paulo, BR</text>',
     ]
     # key/value block on the right
     kv = [("focus", "python · sql · aws"), ("building", "tools people actually use"),
-          ("next_stop", "data engineer, abroad")]
+          ("next_stop", "data engineer")]
     for i, (k, v) in enumerate(kv):
         parts.append(
             f'<text x="608" y="{72 + i * 30}" font-family="{MONO}" font-size="14" '

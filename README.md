@@ -20,9 +20,9 @@ name          | Julio Cesar Santos
 role          | Data Engineering & Analytics intern @ Itaú Unibanco
 day_to_day    | credit-recovery decision rules in high-volume systems,
               | Python + SQL batch simulations, AWS (Athena, S3, Lambda)
-education     | BSCS · Computer Science & Data Science
+education     | Data Science
 studying      | Spark · Airflow · dbt · Kafka  -> tracked in my own roadmap
-goal          | data engineer on an international team
+goal          | become a data engineer one day
 side_quest    | built an F1-style timer to speedrun League of Legends clears
 
 (1 row)
@@ -32,7 +32,7 @@ side_quest    | built an F1-style timer to speedrun League of Legends clears
 <summary><b>🇧🇷 Em português</b></summary>
 <br>
 
-Sou estagiário de **Data Engineering & Analytics no Itaú Unibanco**, onde implemento e mantenho regras de decisão de crédito para recuperação de pessoas físicas, com Python, SQL e AWS. Estudo Ciência da Computação com foco em dados e meu objetivo é trabalhar como engenheiro de dados em um time internacional. Gosto de construir ferramentas que as pessoas realmente usam: um roadmap de estudos com revisão espaçada, um cronômetro para treinar jungle no LoL e APIs que não deixam o estoque ficar inconsistente.
+Sou estagiário de **Data Engineering & Analytics no Itaú Unibanco**, onde implemento e mantenho regras de decisão de crédito para recuperação de pessoas físicas, com Python, SQL e AWS. Estudo Ciência de Dados e meu objetivo é me tornar engenheiro de dados um dia. Gosto de construir ferramentas que as pessoas realmente usam: um roadmap de estudos com revisão espaçada, um cronômetro para treinar jungle no LoL e um app Android para não desperdiçar comida.
 
 </details>
 
@@ -72,10 +72,6 @@ Admin apprentice at FIS → solving inbound problems with global teams at Amazon
   <a href="https://github.com/Thiscesarr/jungle-splits"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-jungle-splits-dark.svg"><img src="assets/card-jungle-splits-light.svg" width="49%" alt="jungle-splits"></picture></a>
   <a href="https://github.com/Thiscesarr/data-engineering-roadmap"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-data-engineering-roadmap-dark.svg"><img src="assets/card-data-engineering-roadmap-light.svg" width="49%" alt="data-engineering-roadmap"></picture></a>
 </p>
-<p>
-  <a href="https://github.com/Thiscesarr/controle-estoque"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-controle-estoque-dark.svg"><img src="assets/card-controle-estoque-light.svg" width="49%" alt="controle-estoque"></picture></a>
-  <a href="https://github.com/Thiscesarr/mastermind-case"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-mastermind-case-dark.svg"><img src="assets/card-mastermind-case-light.svg" width="49%" alt="mastermind-case"></picture></a>
-</p>
 
 ### `$ ls ./lab` <sub>🔒 private, in progress</sub>
 
@@ -84,11 +80,13 @@ Admin apprentice at FIS → solving inbound problems with global teams at Amazon
 </p>
 
 <details>
-<summary><code>ls -a</code> · older builds</summary>
+<summary><code>ls -a</code> · more builds and interview cases</summary>
 <br>
 
 | repo | what it is | stack |
 |---|---|---|
+| [controle-estoque](https://github.com/Thiscesarr/controle-estoque) | Interview case: inventory REST API with reservations and holds that stays consistent under concurrent requests | Python · FastAPI · pytest · Hypothesis · CI |
+| [mastermind-case](https://github.com/Thiscesarr/mastermind-case) | Interview case: web version of the Mastermind logic game with auth, saved matches and ranking | Java · Spring Boot · Angular |
 | [todo-api](https://github.com/Thiscesarr/todo-api) | RESTful task manager with validation, global error handling and Swagger docs | Java · Spring Boot · PostgreSQL · JUnit |
 | [logica-cs](https://github.com/Thiscesarr/logica-cs) | Truth-table generator for my Mathematical Logic class, [live on Vercel](https://logica-cs.vercel.app/) | Python · Flask · SymPy |
 
